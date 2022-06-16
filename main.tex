@@ -1,0 +1,129 @@
+\documentclass[lettersize,journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{cite}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% updated with editorial comments 8/9/2021
+\usepackage{chemformula} %CO2
+
+%% PDF Plot %%
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+%% PDF Plot %%
+
+%%% Set hyper/link/url colour: %%%
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=magenta,
+    linkcolor=magenta,
+    urlcolor=blue
+}
+
+\usepackage{orcidlink} % orcid
+
+%% Jialeng
+\newcommand{\Jialeng}[1]{\textcolor{blue}{$\xrightarrow[]{\text{Jialeng}}$ ``#1''}}
+
+
+
+
+
+\begin{document}
+
+\title{BoatNet: Automated Small Boat Composition Detection using Deep Learning on Satellite Imagery}
+
+\author{
+\IEEEauthorblockN{
+Guo Jialeng~\orcidlink{0000-0003-1640-5443},~\IEEEmembership{Student Member,~IEEE}, 
+and Santiago Suárez de la Fuente~\orcidlink{0000-0002-8787-8531}}
+
+\thanks{\textit{
+The authors are with UCL Energy Institute, The Bartlett School of Environment, Energy and Resources, The Bartlett Faculty of the Built Environment, University College London, London WC1N 0NN. Email: \{jialeng.guo.20,santiago.fuente.11\}@ucl.ac.uk}.} 
+}
+
+
+
+\maketitle
+
+\begin{abstract}
+Tracking and measuring national carbon footprints is one of the keys to achieving the countries' ambitious climate goals. According to statistics, more than 10\% of the global transportation carbon emissions come from shipping. However, accurate tracking of the emissions of the small boat segment is not well established. Research has started to look into the Greenhouse Gases (GHG) role of the small boat fleet but this either relies on high-level techno-activity assumptions or the installation of GPS sensors to understand how this vessel class behaves. Further, the research is done mainly for fishing boats. With the advent of open-access satellite imagery and its ever-increasing resolution, it can support innovative methodologies that could eventually lead to the quantification of GHG emissions. In this work, deep learning algorithms were tested to detect small boats in three cities of the Gulf of California in Mexico. The work produced a methodology named BoatNet that can detect, measure and classify small boats even under low-resolution and blurry satellite images achieving a precision of up to XX\%. Future work should focus on the attribution of a boat activity to fuel consumption and operational profile to then establish a methodology that can estimate the small boat GHG emissions in any given region. The data curated and produced in this study is freely available at https://github.com/theiresearch/BoatNet.
+\end{abstract}
+
+
+\begin{IEEEkeywords}
+Object Detection, CNNs, Carbon Footprint.
+\end{IEEEkeywords}
+
+\section{Introduction}
+\input{sections/introduction}
+\label{chap:1}
+
+\section{Related Work}
+\label{chap:2}
+\input{sections/related-work}
+
+
+\section{ConvNet Configurations}
+\label{chap:3}
+\input{sections/models}
+
+
+
+\section{Results}
+\label{chap:4}
+\input{sections/results}
+
+
+
+%\section{Future Work}
+%\input{sections/future-work}
+
+
+%\section{Conclusion}
+%\input{sections/conclusion}
+
+\section{Discussion}
+\input{sections/discussion}
+
+
+
+% References section
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+
+\section{Biography Section}
+%If you have an EPS/PDF photo (graphicx package needed), extra braces are needed around the contents of the optional argument to biography to prevent the LaTeX parser from getting confused when it sees the complicated
+% $\backslash${\tt{includegraphics}} command within an optional argument. (You can create
+% your own custom macro containing the $\backslash${\tt{includegraphics}} command to make things
+% simpler here.)
+ 
+\vspace{11pt}
+\textbf{Dr Santiago Suárez de la Fuente} is Lecturer in Energy and Transport at University College London (UCL) Energy Institute. His research focuses on marine energy-efficient technologies, holistic modeling approaches for the maritime sector, performance data analytics and decarbonization pathways for shipping. He is currently working on finding feasible and equitable business opportunities in developing nations to transition the maritime sector. Dr Suarez de la Fuente did his PhD at UCL on marine waste heat recovery systems (WHRS). He was granted the Institute of Marine Engineering, Science and Technology (IMarEST) Stanley Gray fellowship and the prestigious Denny Medal. He studied his bachelor’s degree in Mechanical Engineering at the Institute of Technology and Higher Education (ITESO, Mexico). He has an MSc degree in Mechanical Engineering at UCL (2010-2011).
+
+\textbf{Guo Jialeng} received the MSc degree in Energy System and Data Analytics from University College London (UCL) in 2021, and the BEng degree in Electronic Engineering from the University of Leeds in 2019. In computer vision, his interests include understanding and developing energy and climate systems with human-centered object detection and understanding system.
+
+%\bf{If you include a photo:}\vspace{-33pt}
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{fig1}}]{Michael Shell}
+%Use $\backslash${\tt{begin\{IEEEbiography\}}} and then for the 1st argument use $\backslash${\tt{includegraphics}} to declare and link the author photo.
+%Use the author name as the 3rd argument followed by the biography text.
+%\end{IEEEbiography}
+
+
+
+
+
+\vfill
+
+\end{document}
+
+
