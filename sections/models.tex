@@ -32,12 +32,7 @@ Each satellite image was manually pre-labelled with a highly-precise label box ~
 \subsection{Single Object Detection Architecture}
 \label{III-D-Detection-Architecture}
 
-\begin{figure}[t]
-    \center
-    \includegraphics[width=\columnwidth]{img/YOLOv5_Performance.png}
-    \caption{{Average Precision (AP) vs GPU Speed in the 6th generation of YOLOv5 model under COCO data set~\cite{glenn_jocher_2020_4154370}.}}
-    \label{fig:YOLOv5_Performance}
-\end{figure}
+Figure~\ref{model_architecture} shows a schematic of the models being used for detecting boats, where satellite images in the Gulf of California are the input of a pre-trained convolutional neural network (CNN). The detection accuracy was determined by computing the mean probability score from the Gulf's satellite images. In Sec~\ref{sec2.2}, recent literature and the development of Convolutional Neural Networks (CNNs), including the YOLO model, were discussed. YOLOv5 has four different categories of models, YOLOv5s, YOLOv5m, YOLOv5l, and YOLOv5x~\cite{glenn_jocher_2022_6222936}. They have 7.3 million, 21.4 million, 47.0 million and 87.7 million parameters, respectively. The performance charts can be seen as Figure~\ref{fig:YOLOv5_Performance} where the YOLOv5l model can achieve higher average precision with the same faster computing speed. Thus, in this study, the YOLOv5l model was chosen as the model for the training dataset.
 
 \begin{figure*}[!t]
     \centering
@@ -46,8 +41,13 @@ Each satellite image was manually pre-labelled with a highly-precise label box ~
     \label{model_architecture}
 \end{figure*}
 
+\begin{figure}[!t]
+    \center
+    \includegraphics[width=\columnwidth]{img/YOLOv5_Performance.png}
+    \caption{{Average Precision (AP) vs GPU Speed in the 6th generation of YOLOv5 model under COCO data set~\cite{glenn_jocher_2020_4154370}.}}
+    \label{fig:YOLOv5_Performance}
+\end{figure}
 
-In Sec~\ref{sec2.2}, recent literature and the development of Convolutional Neural Networks (CNNs), including the YOLO model, were discussed. YOLOv5 has four different categories of models, YOLOv5s, YOLOv5m, YOLOv5l, and YOLOv5x~\cite{glenn_jocher_2022_6222936}. They have 7.3 million, 21.4 million, 47.0 million and 87.7 million parameters, respectively. The performance charts can be seen as Figure~\ref{fig:YOLOv5_Performance} where the YOLOv5l model can achieve higher average precision with the same faster computing speed. Thus, in this study, the YOLOv5l model was chosen as the model for the training dataset. Figure~\ref{model_architecture} shows a schematic of the models being used for detecting boats, where satellite images in the Gulf of California are the input of a pre-trained convolutional neural network (CNN). The detection accuracy was determined by computing the mean probability score from the Gulf's satellite images.
 
 Satellite images often contain noise such as shadows cast by water on the sea surface or clouds in the atmosphere, which make the training data inaccurate and often cause problems ensuring the model's correctness. He et al.~\cite{He2009SingleIH} proposed a simple but effective image prior-dark channel before removing haze from a single input image. The prior-dark channel can be used as a statistic of outdoor haze-free images. Based on critical observation, most local patches in outdoor haze-free images contain some pixels whose intensity is very low in at least one colour channel. Using this prior-dark channel before the haze imaging model, the thickness of the haze can be estimated, and a high quality haze-free image can be recovered. Moreover, a high quality depth map can also be obtained as a byproduct of haze removal.
 
@@ -64,14 +64,14 @@ As the dataset for the training model was created with each edge tangent to the 
 \end{itemize}
 
 
-\begin{figure}[t]
+The eye altitude was set to 200 metres based on the above rules. This study used a satellite image of Zurich Lake, Switzerland, on 16th August 2018 as the standard image for defining the scale (Figure~\ref{fig:zurich}). Compared with other regions, the satellite image of Zurich Lake complies with the rules, and it is a suitable candidate as the standard for measuring the length of small boats. This standard was then used for the rest of the imagery database.
+
+\begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{img/zurich.jpeg}
     \caption{An image from Google Earth Pro for Zurich Lake on 16 Aug 2018 when eye alt is 200 metres.}
     \label{fig:zurich}
 \end{figure}
-
-The eye altitude was set to 200 metres based on the above rules. This study used a satellite image of Zurich Lake, Switzerland, on 16th August 2018 as the standard image for defining the scale (Figure~\ref{fig:zurich}). Compared with other regions, the satellite image of Zurich Lake complies with the rules, and it is a suitable candidate as the standard for measuring the length of small boats. This standard was then used for the rest of the imagery database.
 
 After measurement, the vessel in Figure~\ref{fig:zurich} had a YOLO length of 0.43 that, after the scale conversion, represented 55.17 metres. With an eye altitude of 200 metres, the ratio of the absolute length to the YOLO length was approximately 127. Finally, after several verification tests, this ratio returned a small margin of error (around 1\% to 3\%) and hence was deemed a suitable scaling ratio for the remaining images. Moreover, having the same ratio and eye altitude was not enough. The resolution of each image must be the same, so measurements are standardised. For this purpose, all datasets that detect small boats will maintain a resolution of 3840x2160 pixels.
 

@@ -1,28 +1,29 @@
 \subsection{Train Custom Data: Weights, Biases Logging, Local Logging}
 
-\begin{figure}[t]
+As shown in Figure~\ref{fig:colab_metrics}, the average accuracy, precision, and recall of the model all show a significant increase with the model training number when the Intersection Over Union (IOU)\footnote{IOU is an evaluation metric used to measure the accuracy of an object detector on a particular dataset.} is between 50\% and 95\%. In particular, the precision of the model can eventually reach a level close to 96\%. However, this does not necessarily mean that the model will also fit the satellite imagery of the Gulf of California. First, such high accuracy results only tell us that the model can achieve a relatively high recognition accuracy, which gradually increases and reaches 96\% after 300 training repetitions. In the case that the algorithm needs to be trained for this area, consideration must be given to purposefully selecting many small boats in or near the area as a data source for training the model. 
+
+\begin{figure}[!t]
     \centerline{\includegraphics[width=\columnwidth]{img/colab_metrics.png}}
     \caption{Average model precision when IOU is larger than 0.5; Average model precision when IOU is between 0.5 and 0.95; The model precision; The model recall rate.}
     \label{fig:colab_metrics}
 \end{figure}
 
-\begin{figure}[t]
+To train models faster, we reduced the images' resolution by about 70, resulting in images of 416 pixels x 416 pixels. The training could otherwise take two weeks if the images used had a resolution of 4800 pixels x 2908 pixels.
+
+Similarly, as shown in Figure~\ref{fig:colab_train}, the loss rate of the box can eventually reach 1\% as the number of training sessions increases. Since this study has defined only one class of object (i.e. boat), the probability that the detection box does not detect that it is a boat at all is 1\%. Similarly, because there is only one class, the class loss rate is 0. Figure~\ref{fig:test_batch1_pred} presents the prediction results during the training of the model, and shows that the model can detect the presence of vessels in 100\% of the tested ranges and gives the corresponding range boxes. Most detected boats have a 90\% probability of being boats, an acceptable value for object detection. Since only one class was set, some were also considered a 100\% probability of being boats.
+
+
+\begin{figure}[!t]
     \centerline{\includegraphics[width=\columnwidth]{img/colab_train.png}}
     \caption{The box loss rate of the model; The class loss rate of the model; The object loss rate of the model.}
     \label{fig:colab_train}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!t]
     \centerline{\includegraphics[width=\columnwidth]{img/test_batch1_pred.jpeg}}
     \caption{Test result of a trained model for detecting ships.}
     \label{fig:test_batch1_pred}
 \end{figure}
-
-As shown in Figure~\ref{fig:colab_metrics}, the average accuracy, precision, and recall of the model all show a significant increase with the model training number when the Intersection Over Union (IOU)\footnote{IOU is an evaluation metric used to measure the accuracy of an object detector on a particular dataset.} is between 50\% and 95\%. In particular, the precision of the model can eventually reach a level close to 96\%. However, this does not necessarily mean that the model will also fit the satellite imagery of the Gulf of California. First, such high accuracy results only tell us that the model can achieve a relatively high recognition accuracy, which gradually increases and reaches 96\% after 300 training repetitions. In the case that the algorithm needs to be trained for this area, consideration must be given to purposefully selecting many small boats in or near the area as a data source for training the model. 
-
-To train models faster, we reduced the images' resolution by about 70, resulting in images of 416 pixels x 416 pixels. The training could otherwise take two weeks if the images used had a resolution of 4800 pixels x 2908 pixels.
-
-Similarly, as shown in Figure~\ref{fig:colab_train}, the loss rate of the box can eventually reach 1\% as the number of training sessions increases. Since this study has defined only one class of object (i.e. boat), the probability that the detection box does not detect that it is a boat at all is 1\%. Similarly, because there is only one class, the class loss rate is 0. Figure~\ref{fig:test_batch1_pred} presents the prediction results during the training of the model, and shows that the model can detect the presence of vessels in 100\% of the tested ranges and gives the corresponding range boxes. Most detected boats have a 90\% probability of being boats, an acceptable value for object detection. Since only one class was set, some were also considered a 100\% probability of being boats.
 
 \subsection{Detection Results and Small Boat Composition}
 Starting with the length measurement comparison of a detected small boat and a large ship by BoatNet against Google Earth Pro measuring tools, Figure~\ref{fig:length_test} shows that the small boat detected measured 6.98 metres using Google Earth Pro, while BoatNet estimated 6.74 metres. The error between them is 3.4\%. Google Earth Pro measured the larger ship at 41.38 metres and BoatNet at 40.98 metres. The error between them is less than 1.0\%.
@@ -46,20 +47,20 @@ As explained in Sec~\ref{III-D-Detection-Architecture}, it was unproductive for 
 
 \end{enumerate}
 
-\begin{figure}[t]
+\begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{img/1_docked_together_Guaymas_202001_20.jpeg}
     \caption{When small boats are moored closely together in the harbour, the model may recognise two small boats as one. The image is from Guaymas, January 2020.}
     \label{fig:1_docked_together_Guaymas_202001_20}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!t]
     \includegraphics[width=\columnwidth]{img/2_square_Guaymas_202001_01.jpeg}
     \caption{When the cargo ship is full of cargo, the ship looks like a rectangular jetty from above and loses the normal shape of a ship. The image is from Guaymas, January 2020.}
     \label{fig:2_square_Guaymas_202001_01}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!t]
     \includegraphics[width=\columnwidth]{img/3_beach_SantaRosalia_202104_02.jpeg}
     \caption{Models may have difficulty detecting small boats moored on the beach. The image is from Santa Rosalia, February 2021.}
     \label{fig:3_beach_SantaRosalia_202104_02}
@@ -110,4 +111,4 @@ In fact, according to statistic\cite{INEGI2022Population} from the Mexican gover
 \label{Guaymas_2020}
 \end{table}
 
-According to the statement in Sec~s\ref{III-D-Detection-Architecture}, determining whether a boat is white can be used as a criterion to determine whether a boat is used for recreation or fishing. As seen in Table~\ref{Guaymas_2020}, most of the small boats captured in the photo of Guaymas in 2020 are white ( i.e. all can be classified as recreational boats). However, as previously discussed, this conclusion is limited since the algorithm does not consider, for example, other colours as part of the characteristics of leisure boats. Furthermore, although there are many uncertainties in detecting the colour of the boats, the algorithm also considers situations where the colour is not fully white due to atmospheric refraction, weather conditions, or cloud interference. The algorithm also considers cases where the boat's colour is light. Therefore, this approach is acceptable from the point of view of algorithm complexity, results, and detecting data quality.
+According to the statement in Sec~\ref{III-D-Detection-Architecture}, determining whether a boat is white can be used as a criterion to determine whether a boat is used for recreation or fishing. As seen in Table~\ref{Guaymas_2020}, most of the small boats captured in the photo of Guaymas in 2020 are white ( i.e. all can be classified as recreational boats). However, as previously discussed, this conclusion is limited since the algorithm does not consider, for example, other colours as part of the characteristics of leisure boats. Furthermore, although there are many uncertainties in detecting the colour of the boats, the algorithm also considers situations where the colour is not fully white due to atmospheric refraction, weather conditions, or cloud interference. The algorithm also considers cases where the boat's colour is light. Therefore, this approach is acceptable from the point of view of algorithm complexity, results, and detecting data quality.
